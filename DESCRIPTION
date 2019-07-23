@@ -1,0 +1,13 @@
+Package: scallopr
+Type: Package
+Title: ADF&G scallop survey assessment
+Version: 0.1.0
+Author: Ben Williams
+Maintainer: The package maintainer <ben.williams@alaska.gov>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports: tidyverse, lubridate, scales, magrittr, here, knitr, kableExtra, broom, rsample
+Remotes: github::ben-williams/FNGr
