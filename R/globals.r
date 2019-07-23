@@ -31,8 +31,6 @@ Districts <- tibble(Bed = factor(Bed_levels, levels = Bed_levels),
                                                 Bed == "EK1" ~ "EKI",
                                                 Bed == "WK1" ~ "WKI"),
                                       levels = District_levels))
-# size classes used for all years analyses
-Size_levels <- c("clapper", "small", "large", "all")
 
 area <- data.frame(Bed = c('EK1','KSH1','KSH2','KSH3','WK1','YAKB','YAK1','YAK2',
                            'YAK3','YAK4','YAK5','YAK6','D16','KNE1','KNE2','KNE3',
