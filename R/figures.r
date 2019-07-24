@@ -3,7 +3,6 @@
 plot_catch_rate <- function(scal_catch, tows, YEAR){
 
   scal_catch %>%
-    filter(Bed=='YAK3', count>500)
   group_by(Bed, Size) %>%
     summarise(count = max(count))
   ggplot(aes(Bed, count, fill =Size)) +
