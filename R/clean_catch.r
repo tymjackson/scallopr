@@ -25,8 +25,8 @@ clean_catch <- function(catch_data, tows, YEAR){
       mutate(Size = factor(size, levels = Size_levels)) %>%
       select(-size) %>%
       left_join(tows, by = "tow_id") %>%
-      ungroup() %>%
-      write_csv(here::here(paste0("output/", YEAR, "/scal_catch.csv")))
+      ungroup() -> x
+
   } else {
     catch_data %>%
       filter(rcode == 74120,
@@ -47,8 +47,11 @@ clean_catch <- function(catch_data, tows, YEAR){
       mutate(Size = factor(size, levels = Size_levels)) %>%
       select(-size) %>%
       left_join(tows, by = "tow_id") %>%
-      ungroup() %>%
-      write_csv(here::here(paste0("output/", YEAR, "/scal_catch.csv")))
+      ungroup() -> x
+
   }
+
+  write_csv(x, here::here(paste0("output/",YEAR,"/scal_catch.csv")))
+  x
 
 }

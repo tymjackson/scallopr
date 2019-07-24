@@ -16,8 +16,8 @@ clean_awl <- function(awl_data, tows){
                 weak = MEAT_CONDITION_SW,
                 gonad = SCAL_GONAD_COND,
                 worm = SHELL_WORM_SW,
-                mud = MUD_BLISTER_SW)  %T>%
-      write_csv(here::here(paste0("output/", YEAR, "/awl_tbl.csv")))
+                mud = MUD_BLISTER_SW)  -> x
+
   } else {
     awl_data %>%
       filter(rcode == 74120,
@@ -32,8 +32,8 @@ clean_awl <- function(awl_data, tows){
                 weak = meat_condition,
                 gonad = gonad,
                 worm = shell_worm,
-                mud = mud_blister)  %T>%
-      write_csv(here::here(paste0("output/", YEAR, "/awl_tbl.csv")))
+                mud = mud_blister)  -> x
   }
-
+  write_csv(x, here::here(paste0("output/",YEAR,"/awl_tbl.csv")))
+  x
 }
