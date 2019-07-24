@@ -22,7 +22,7 @@ plot_catch_rate <- function(scal_catch, tows, YEAR){
                  geom ="text") +
     scale_fill_manual(values = c("white", 'lightgray'), name = "Size class") +
     theme(legend.justification=c(1,0), legend.position=c(.95,.7)) +
-    scale_y_continuous(label=comma) +
+    scale_y_continuous(label=scales::comma) +
     coord_cartesian(ylim = c(-25,600)) -> x
 
   ggsave(here::here(paste0("figs/", YEAR, "/catch_rates.png")), plot = x,
@@ -81,7 +81,7 @@ plot_size_dist <- function(scal_awl, scal_catch, tows, YEAR){
     geom_histogram(color = "black", fill = "darkgray", bins = 75) +
     facet_wrap(~Bed, ncol=2, dir = 'v', scales = 'free_y') +
     xlab("\nShell height (mm)") +
-    scale_y_continuous("Weighted shell height counts\n", label = comma) +
+    scale_y_continuous("Weighted shell height counts\n", label = scales::comma) +
     theme(strip.background = element_blank()) -> x
 
   ggsave(here::here(paste0("figs/", YEAR, "/size_dist.png")), plot = x, width = 6.5, height = 8)
@@ -110,7 +110,7 @@ plot_size_dist2 <- function(scal_awl, scal_catch, tows, YEAR){
     geom_histogram(color = "black", fill = "darkgray", bins = 75) +
     facet_wrap(~Bed, ncol=2, dir = 'v', scales = 'free_y') +
     xlab("\nShell height (mm)") +
-    scale_y_continuous("Weighted shell height counts\n", label = comma) +
+    scale_y_continuous("Weighted shell height counts\n", label = scales::comma) +
     theme(strip.background = element_blank()) -> x
 
   ggsave(here::here(paste0("figs/", YEAR, "/size_dist.png")), plot = x, width = 6.5, height = 8)
