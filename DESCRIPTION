@@ -18,7 +18,7 @@ Imports:
     knitr, 
     kableExtra, 
     broom, 
-    rsample
+    rsample,
     vroom
 Depends:
     dplyr
