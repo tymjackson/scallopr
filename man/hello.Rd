@@ -1,8 +1,10 @@
 \name{hello}
 \alias{hello}
-\title{Hello, World!}
+\title{scallopr:}
 \usage{
-hello()
+For each year a number of GLOBALS must be set.
+These include:
+    YEAR & Q.
 }
 \description{
 Prints 'Hello, world!'.
