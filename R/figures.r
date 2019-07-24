@@ -34,6 +34,7 @@ plot_catch_rate <- function(scal_catch, tows, YEAR){
 plot_scal_est <- function(scal_est, abundance = TRUE, YEAR){
 
   scal_est %>%
+    ungroup %>%
     filter(!(Size %in% c("clapper", "all")))	%>%
     mutate(Bed = factor(Bed, levels = Bed_levels)) %>%
     ggplot(aes(Bed, est / 1000000, color = Size)) +
@@ -63,6 +64,7 @@ plot_scal_est <- function(scal_est, abundance = TRUE, YEAR){
 plot_size_dist <- function(scal_awl, scal_catch, tows, YEAR){
 
   scal_catch %>%
+    ungroup %>%
     filter(Size != "clapper") %>%
     select(tow_id, N = count, size = Size) -> tow_count
 
