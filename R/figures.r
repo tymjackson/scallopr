@@ -2,29 +2,33 @@
 # Function for making boxplots of bed tow catches
 plot_catch_rate <- function(scal_catch, tows, YEAR){
 
-  scal_catch %>%
-  group_by(Bed, Size) %>%
-    summarise(count = max(count))
-  ggplot(aes(Bed, count, fill =Size)) +
-    geom_boxplot()
+  output_dir <- file.path("figs", YEAR)
 
-  filter(Size == "small" | Size == "large") %>%
-    select(tow_id, Size, N = count, Bed) %>%
-    left_join(tows, by = c("tow_id", "Bed")) %>%
+  if (!dir.exists(output_dir)){
+    dir.create(output_dir)
+  } else {
+    print("Dir already exists!")
+  }
+
+  scal_catch %>%
+    filter(Size == "small" | Size == "large") %>%
+    select(tow_id, Size, N = count) %>%
+    left_join(tows, by = "tow_id") %>%
     mutate(Bed=factor(Bed, levels = Bed_levels)) %>%
     ggplot(aes(Bed, N, fill = Size)) +
     geom_boxplot() +
-    ylab("Scallops / Tow\n") + xlab("\nBed") +
-    stat_summary(fun.data = function(x) c(y = -25, label = length(x)), geom ="text") +
+    ylab("Scallops / Tow") + xlab("Bed") +
+    stat_summary(fun.data = function(x) c(y = -25, label = length(x)),
+                 geom ="text") +
     scale_fill_manual(values = c("white", 'lightgray'), name = "Size class") +
     theme(legend.justification=c(1,0), legend.position=c(.95,.7)) +
     scale_y_continuous(label=comma) +
     coord_cartesian(ylim = c(-25,600)) -> x
 
-  ggsave(here::here(paste0("figs/", YEAR, "/catch_rates.png")), plot = x, width = 6.5, height = 4, units = "in")
+  ggsave(here::here(paste0("figs/", YEAR, "/catch_rates.png")), plot = x,
+         width = 6.5, height = 4)
 
   x
-
 }
 # Function for plotting abundance (abundance = TRUE) or biomass estimates
 plot_scal_est <- function(scal_est, abundance = TRUE, YEAR){
@@ -34,7 +38,9 @@ plot_scal_est <- function(scal_est, abundance = TRUE, YEAR){
     mutate(Bed = factor(Bed, levels = Bed_levels)) %>%
     ggplot(aes(Bed, est / 1000000, color = Size)) +
     geom_point(size = 1.5, position = position_dodge(0.5)) +
-    geom_errorbar(aes(ymin = l95 / 1000000, ymax = u95 / 1000000), size = 0.5, width = 0.4,
+    geom_errorbar(aes(ymin = l95 / 1000000, ymax = u95 / 1000000),
+                  size = 0.5,
+                  width = 0.4,
                   position = position_dodge(.5)) +
     theme(legend.position = "bottom") +
     scale_color_manual(values = c("small" = "grey70", "large" = "black"),
