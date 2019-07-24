@@ -1,17 +1,5 @@
 #options ----
-library(tidyverse)
-library(lubridate)
-library(scales)
-library(magrittr)
-library(here)
-library(knitr)
-library(kableExtra)
-library(broom)
-library(rsample)
-library(FNGr) # devtools::install_github("ben-williams/FNGr")
 
-theme_set(theme_sleek())
-options(scipen = 999)
 theme_set(theme_sleek())
 
 options(scipen=9999) # remove scientific notation
