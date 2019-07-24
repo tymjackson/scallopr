@@ -19,4 +19,6 @@ Imports:
     kableExtra, 
     broom, 
     rsample
+Depends:
+    tidyverse
 Remotes: github::ben-williams/FNGr
