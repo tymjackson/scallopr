@@ -53,7 +53,7 @@ scallop_est <- function(scal_catch, beds, Q, abundance = TRUE, boot = FALSE){
       nest(-Bed, -Size) %>%
       mutate(est = map(data, ~rsample::bootstraps(., 1000))) %>%
       unnest(est) %>%
-      mutate(models = map(splits, ~est_it(.x))) %>%
+      mutate(models = map(splits, ~boot_ci(.x))) %>%
       unnest(models) %>%
       group_by(Bed, Size) %>%
       summarise(l95 = quantile(est, 0.25),
