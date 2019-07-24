@@ -17,7 +17,7 @@ theme_set(theme_sleek())
 options(scipen=9999) # remove scientific notation
 
 # globals ----
-Q <- 0.83
+
 Bed_levels <- c("KSH1", "KSH2", "KSH3", "KNE2", "KNE3", "KNE6", "KAMN", "KAMS",
                 "WK1", "EK1", "YAKB", "YAK1", "YAK2", "YAK3", "YAK4", "YAK5")
 District_levels <- c("KSH", "KNE", 'KAM', "EKI", "WKI", "YAK", "D16")

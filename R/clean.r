@@ -6,15 +6,27 @@
 # 1. tows correspond to bed definitions
 f_tow_df <- function(events_data){
 
-  # did the gear work
-  # multiple station types
+  output_dir <- file.path("output", YEAR)
+
+  if (!dir.exists(output_dir)){
+    dir.create(output_dir)
+  } else {
+    print("Good to go!")
+  }
+
 
   events_data %>%
-    filter(GEAR_PERFORMANCE_CODE_SW == 1,
-           STATION_TYPE %in% c("Standard", "Repeat", "Standard Non-Selected")) %>%
+    filter(# YEAR==YEAR,
+      GEAR_PERFORMANCE_CODE_SW == 1, # did the gear work
+      STATION_TYPE %in%
+        c("Standard", "Repeat", "Standard Non-Selected")) %>%
+    # multiple station types
     transmute(tow_id = EVENT_ID,
               Bed = factor(BED_SW),
-              area_swept = TOW_LENGTH_DESIGNATED * 0.00131663, # nautical miles
+              area_swept = TOW_LENGTH_DESIGNATED * 0.00131663,
+              # in nautical miles
+              #area_swept = TOW_LENGTH_FIELD * 0.00131663,
+              # in nautical miles - switched for 2018 to make run before getting complete dataset from Mumm
               station = STATION_ID) %>%
     mutate(bedsta = paste0(tow_id, station)) -> x
 
@@ -23,16 +35,23 @@ f_tow_df <- function(events_data){
   if(dim(x)[1] != length(unique(x$bedsta))) {
     stop("Repeated station tows")
   } else {
-    select(x, -station, -bedsta) -> x
+    select(x, -station, - bedsta) -> x
   }
   # save the output
-  write_csv(x, here::here(paste0("output/", YEAR, "/tows.csv")))
+  write_csv(x, here::here(paste0("output/",YEAR,"/tows.csv")))
   x
 }
 
 # the 2019 survey data is in a different format
 f_tow_df2 <- function(events_data){
 
+  output_dir <- file.path("output", YEAR)
+
+  if (!dir.exists(output_dir)){
+    dir.create(output_dir)
+  } else {
+    print("You made a folder - good job!")
+  }
   # did the gear work
   # multiple station types
 
@@ -57,7 +76,7 @@ f_tow_df2 <- function(events_data){
   x
 }
 
-# 2. beds (dependent upon first function)
+# 2. beds (dependent upon the tow function)
 f_bed_df <- function(area_data, tows){
 
   area_data %>%
@@ -65,6 +84,7 @@ f_bed_df <- function(area_data, tows){
     rename(tows = n) %>%
     mutate(Bed = factor(Bed)) %T>%
     write_csv(here::here(paste0("output/", YEAR, "/beds.csv")))
+
 }
 
 # 3 scal.catch (need tows first)
@@ -76,9 +96,9 @@ f_catch_df <- function(catch_data, tows, YEAR){
            CONDITION_CODE_RII %in% c("01", "1", "52"),
            EVENT_ID %in% tows$tow_id) %>%  # filter out uneccessary data
     transmute(tow_id = EVENT_ID,
-              size = case_when(SCAL_SIZE_CLASS == 2 ~ "small",
-                               SCAL_SIZE_CLASS == 1 ~ "large",
-                               SCAL_SIZE_CLASS == 3 ~ "clapper"),
+              size = case_when(SCAL_SIZE_CLASS==2 ~ "small",
+                               SCAL_SIZE_CLASS==1 ~ "large",
+                               SCAL_SIZE_CLASS==3 ~ "clapper"),
               count = COUNT,
               wt_lb = SAMPLE_WT_KG * 2.20462) %>%
     group_by(tow_id, size) %>%
@@ -95,6 +115,7 @@ f_catch_df <- function(catch_data, tows, YEAR){
     left_join(tows, by = "tow_id") %>%
     ungroup() %>%
     write_csv(here::here(paste0("output/", YEAR, "/scal_catch.csv")))
+
 }
 
 f_catch_df2 <- function(catch_data, tows, YEAR){
@@ -131,7 +152,8 @@ f_awl_df <- function(awl_data, tows){
            EVENT_ID %in% tows$tow_id,
            SCAL_SIZE_CLASS == 1 | SCAL_SIZE_CLASS == 2) %>% # no clappers
     transmute(tow_id = EVENT_ID,
-              size = recode(SCAL_SIZE_CLASS, "2" = "small", "1" = "large", .missing = "clapper"),
+              size = recode(SCAL_SIZE_CLASS, "2" = "small", "1" = "large",
+                            .missing = "clapper"),
               sh = SHELL_HEIGHT_MM,
               rwt_lb = WHOLE_WT_GRAMS * 0.00220462,
               mwt_lb = MEAT_WEIGHT_GRAMS * 0.00220462,

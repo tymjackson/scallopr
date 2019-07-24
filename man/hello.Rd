@@ -10,3 +10,4 @@ Prints 'Hello, world!'.
 \examples{
 hello()
 }
+

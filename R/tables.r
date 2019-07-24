@@ -187,10 +187,6 @@ f_meat_wt_est <- function(scal_awl, scal_catch, beds, Q, boot = TRUE){
   est
 }
 
-
-
-
-
 # percent sex
 f_sex_tbl <- function(scal_awl, tows){
 
