@@ -1,2 +1,5 @@
 exportPattern("^[[:alpha:]]+")
 export(clean_tow)
+export(clean_bed)
+export(clean_catch)
+export(clean_awl)
