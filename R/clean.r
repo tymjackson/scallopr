@@ -4,7 +4,7 @@
 # must be done in order
 
 # 1. tows correspond to bed definitions
-0-tow_df <- function(events_data){
+tow_df <- function(events_data){
 
     output_dir <- file.path("output", YEAR)
 
@@ -54,7 +54,7 @@
 }
 
 # 2. beds (dependent upon the tow function)
-1-bed_df <- function(area_data, tows){
+bed_df <- function(area_data, tows){
 
   area_data %>%
     right_join(count(tows, Bed)) %>%
@@ -65,7 +65,7 @@
 }
 
 # 3 scal.catch (need tows first)
-2-catch_df <- function(catch_data, tows, YEAR){
+catch_df <- function(catch_data, tows, YEAR){
 
   if(YEAR < 2019){
   catch_data %>%
@@ -120,7 +120,7 @@
 }
 
 # 4 scal.awl (need tows first)
-3-awl_df <- function(awl_data, tows){
+awl_df <- function(awl_data, tows){
 
   if(YEAR < 2019) {
     awl_data %>%
