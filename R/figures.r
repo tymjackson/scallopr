@@ -1,6 +1,6 @@
 # figures ----
 # Function for making boxplots of bed tow catches
-f_plot_catch_rate <- function(scal_catch, tows, YEAR){
+plot_catch_rate <- function(scal_catch, tows, YEAR){
 
   scal_catch %>%
     filter(Bed=='YAK3', count>500)
@@ -28,7 +28,7 @@ f_plot_catch_rate <- function(scal_catch, tows, YEAR){
 
 }
 # Function for plotting abundance (abundance = TRUE) or biomass estimates
-f_plot_scal_est <- function(scal_est, abundance = TRUE, YEAR){
+plot_scal_est <- function(scal_est, abundance = TRUE, YEAR){
 
   scal_est %>%
     filter(!(Size %in% c("clapper", "all")))	%>%
@@ -55,7 +55,7 @@ f_plot_scal_est <- function(scal_est, abundance = TRUE, YEAR){
 }
 
 # Function for plotting scallop size distributions (no clappers) using sampling weights
-f_plot_size_dist <- function(scal_awl, scal_catch, tows, YEAR){
+plot_size_dist <- function(scal_awl, scal_catch, tows, YEAR){
 
   scal_catch %>%
     filter(Size != "clapper") %>%
@@ -84,7 +84,7 @@ f_plot_size_dist <- function(scal_awl, scal_catch, tows, YEAR){
   x
 }
 
-f_plot_size_dist2 <- function(scal_awl, scal_catch, tows, YEAR){
+plot_size_dist2 <- function(scal_awl, scal_catch, tows, YEAR){
 
   scal_catch %>%
     filter(Size != "clapper") %>%
@@ -113,7 +113,7 @@ f_plot_size_dist2 <- function(scal_awl, scal_catch, tows, YEAR){
   x
 }
 # Functions for plotting mwt against rwt and sh, by District
-f_plot_mwt_rwt <- function(scal_awl, tows, Districts, YEAR){
+plot_mw_rw <- function(scal_awl, tows, Districts, YEAR){
 
   scal_awl %>%
     filter(sh >= 100, !is.na(mwt_lb), mwt_lb * rwt_lb > 0, mwt_lb < rwt_lb) %>%
@@ -132,7 +132,7 @@ f_plot_mwt_rwt <- function(scal_awl, tows, Districts, YEAR){
   x
 
 }
-f_plot_mwt_sh <- function(scal_awl, tows, Districts, YEAR){
+plot_mw_sh <- function(scal_awl, tows, Districts, YEAR){
   scal_awl %>%
     filter(sh >= 100, !is.na(mwt_lb), mwt_lb * rwt_lb > 0, mwt_lb < rwt_lb) %>%
     left_join(tows, by = "tow_id") %>%

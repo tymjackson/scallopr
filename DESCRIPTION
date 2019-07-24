@@ -22,5 +22,6 @@ Imports:
     vroom
 Depends:
     tidyverse,
-    vroom
+    vroom,
+    magrittr
 Remotes: github::ben-williams/FNGr

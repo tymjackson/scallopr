@@ -1,7 +1,7 @@
 # tables ----
 # Table of general results with total scallop counts and overall catch rates,
 # with CVs
-f_tbl_catch <- function(scal_catch, beds){
+tbl_catch <- function(scal_catch, beds){
 
   scal_catch %>%
     filter(Size != "clapper") %>%
@@ -18,12 +18,14 @@ f_tbl_catch <- function(scal_catch, beds){
                   Size,
                   Catch = catch,
                   CatchRate = est,
-                  CV)  %T>%
-    write_csv(here::here(paste0("output/", YEAR, "/bed_catch_results_tbl.csv")))
+                  CV) -> x
+
+    write_csv(x, here::here(paste0("output/", YEAR, "/bed_catch_results_tbl.csv")))
+    x
 
 }
 
-f_scallop_est <- function(scal_catch, beds, Q, abundance = TRUE, boot = FALSE){
+scallop_est <- function(scal_catch, beds, Q, abundance = TRUE, boot = FALSE){
 
   if(abundance){
     scal_catch %>%
@@ -96,7 +98,7 @@ f_scallop_est <- function(scal_catch, beds, Q, abundance = TRUE, boot = FALSE){
 }
 
 # Estimation of bed large-scallop meat-weight with bootstrap CI option
-f_meat_wt_est <- function(scal_awl, scal_catch, beds, Q, boot = TRUE){
+meat_wt_est <- function(scal_awl, scal_catch, beds, Q, boot = TRUE){
 
   scal_catch %>%
     filter(Size == "large") %>%
@@ -188,7 +190,7 @@ f_meat_wt_est <- function(scal_awl, scal_catch, beds, Q, boot = TRUE){
 }
 
 # percent sex
-f_sex_tbl <- function(scal_awl, tows){
+tbl_sex <- function(scal_awl, tows){
 
   scal_awl %>%
     left_join(tows, by = "tow_id") %>%
@@ -206,7 +208,7 @@ f_sex_tbl <- function(scal_awl, tows){
 }
 
 # clappers
-f_clap_tbl <- function(scal_catch, scal_awl){
+tbl_clap <- function(scal_catch, scal_awl){
 
   scal_awl %>%
     left_join(tows) %>%
@@ -227,7 +229,7 @@ f_clap_tbl <- function(scal_catch, scal_awl){
 }
 
 # worms
-f_worm_tbl <- function(scal_awl, tows){
+tbl_worm <- function(scal_awl, tows){
 
   tbl_names <- c("Bed", "N", "0%", "1-24%", "25-49%", "50-74%", "75-100%")
 
@@ -252,7 +254,7 @@ f_worm_tbl <- function(scal_awl, tows){
 
 
 # mud blisters
-f_blister_tbl <- function(scal_awl, tows){
+tbl_blister <- function(scal_awl, tows){
 
   tbl_names <- c("Bed", "N", "0%", "1-24%", "25-49%", "50-74%", "75-100%")
 
@@ -271,15 +273,14 @@ f_blister_tbl <- function(scal_awl, tows){
               two = round(max(`2`),1),
               three = round(max(`3`),1),
               four = round(max(`4`),1)) %>%
-    rename_at(names(.), function(x) tbl_names) %T>%
-    write_csv(here::here(paste0("output/", YEAR, "/mud.csv")))
+    rename_at(names(.), function(x) tbl_names) -> x
+
+    write_csv(x, here::here(paste0("output/", YEAR, "/mud.csv")))
+    x
 }
 
 # gonads
-
-
-# gonads
-f_gonad_tbl <- function(scal_awl, tows){
+tbl_gonad <- function(scal_awl, tows){
 
   tbl_names <- c("Bed","N", "Immature", "Empty", "Init. Recovery", "Filling", "Full", "Unknown")
 
@@ -298,9 +299,10 @@ f_gonad_tbl <- function(scal_awl, tows){
               three = round(max(`3`),1),
               four = round(max(`4`),1),
               five = round(max(`5`),1)) %>%
-    rename_at(names(.), function(x) tbl_names) %T>%
-    write_csv(here::here(paste0("output/", YEAR, "/gonad.csv")))
+    rename_at(names(.), function(x) tbl_names) -> x
 
+    write_csv(x, here::here(paste0("output/", YEAR, "/gonad.csv")))
+    x
 }
 
 
