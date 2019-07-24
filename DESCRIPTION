@@ -9,5 +9,14 @@ Description: More about what it does (maybe more than one line)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: tidyverse, lubridate, scales, magrittr, here, knitr, kableExtra, broom, rsample
+Imports: 
+    tidyverse, 
+    lubridate, 
+    scales, 
+    magrittr, 
+    here, 
+    knitr, 
+    kableExtra, 
+    broom, 
+    rsample
 Remotes: github::ben-williams/FNGr
