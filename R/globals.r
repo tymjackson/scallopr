@@ -1,6 +1,6 @@
 #options ----
 
-theme_set(theme_sleek())
+theme_set(FNGr::theme_sleek())
 
 options(scipen=9999) # remove scientific notation
 
