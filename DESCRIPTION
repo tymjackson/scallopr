@@ -19,6 +19,7 @@ Imports:
     kableExtra, 
     broom, 
     rsample
+    vroom
 Depends:
-    tidyverse
+    dplyr
 Remotes: github::ben-williams/FNGr
