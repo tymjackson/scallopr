@@ -1,2 +1,3 @@
-exportPattern("^[[:alpha:]]+")
-load_all("./")
+importFrom(magrittr,"%>%")
+importFrom(magrittr,"%T>%")
+

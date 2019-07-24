@@ -16,28 +16,28 @@ tow_df <- function(events_data){
 
   if(YEAR < 2019){
     events_data %>%
-      filter(# YEAR==YEAR,
+      dplyr::filter(# YEAR==YEAR,
         GEAR_PERFORMANCE_CODE_SW == 1, # did the gear work
         STATION_TYPE %in%
           c("Standard", "Repeat", "Standard Non-Selected")) %>%
       # multiple station types
-      transmute(tow_id = EVENT_ID,
+      dplyr::transmute(tow_id = EVENT_ID,
                 Bed = factor(BED_SW),
                 area_swept = TOW_LENGTH_DESIGNATED * 0.00131663,
                 # in nautical miles
                 #area_swept = TOW_LENGTH_FIELD * 0.00131663,
                 # in nautical miles - switched for 2018 to make run before getting complete dataset from Mumm
                 station = STATION_ID) %>%
-      mutate(bedsta = paste0(tow_id, station)) -> x
+      dplyr::mutate(bedsta = paste0(tow_id, station)) -> x
   } else {
     events_data %>%
-      filter(gear_perf == 1,
+      dplyr::filter(gear_perf == 1,
              haul_type == 10) %>%
-      transmute(tow_id = tow,
+      dplyr::transmute(tow_id = tow,
                 Bed = factor(bed_code),
                 area_swept = distance * 0.00131663, # in nautical miles
                 station = station) %>%
-      mutate(bedsta = paste0(tow_id, station)) -> x
+      dplyr::mutate(bedsta = paste0(tow_id, station)) -> x
   }
 
     # make sure that there are no duplicate data
