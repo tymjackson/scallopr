@@ -7,6 +7,7 @@ Maintainer: The package maintainer <ben.williams@alaska.gov>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
+Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 LazyData: true
 Imports: 

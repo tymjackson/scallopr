@@ -91,7 +91,6 @@ plot_size_dist <- function(scal_awl, scal_catch, tows, YEAR){
   x
 }
 
-
 # Functions for plotting mwt against rwt and sh, by District
 plot_mw_rw <- function(scal_awl, tows, Districts, YEAR){
 

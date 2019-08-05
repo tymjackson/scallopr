@@ -23,4 +23,3 @@ tbl_gonad <- function(scal_awl, tows){
   write_csv(x, here::here(paste0("output/", YEAR, "/gonad.csv")))
   x
 }
-

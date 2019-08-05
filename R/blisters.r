@@ -1,4 +1,4 @@
-# mud blisters
+#' mud blisters
 tbl_blister <- function(scal_awl, tows){
 
   tbl_names <- c("Bed", "N", "0%", "1-24%", "25-49%", "50-74%", "75-100%")
