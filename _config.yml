@@ -3,3 +3,4 @@ name: scallopr
 description: functions for analyzing scallop survey data
 url: "http://ben-williams.github.io/scallopr"
 permalink: pretty
+markdown: kramdown
